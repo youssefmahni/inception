@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_vol:/var/lib/mysql
     networks:
       - inception
 
@@ -22,11 +22,9 @@ services:
     env_file:
       - .env
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress_vol:/var/www/html
     networks:
       - inception
-    ports:
-      - 9000:9000
 
   nginx:
     image: nginx:1337
@@ -38,29 +36,81 @@ services:
     networks:
       - inception
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress_vol:/var/www/html
     ports:
       - 443:443
       - 80:80
-
   
+  redis:
+    image: redis:1337
+    build: ./bonus/redis
+    container_name: redis
+    restart: always
+    networks:
+      - inception
+  
+  ftp:
+    image: ftp:1337
+    build: ./bonus/ftp
+    container_name: ftp
+    restart: always
+    networks:
+      - inception
+    env_file:
+      - .env
+    volumes:
+      - wordpress_vol:/var/ftp
+    ports:
+    - 2121:2121
+    - 21000-21010:21000-21010
+
+  adminer:
+    image: adminer:1337
+    build: ./bonus/adminer
+    container_name: adminer
+    restart: always
+    networks:
+      - inception
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+
+  game:
+    image: game:1337
+    build: ./bonus/jsgame
+    container_name: game
+    restart: always
+    networks:
+      - inception
+    ports:
+      - 5000:5000
+  
+  netdata:
+    image: netdata:1337
+    build: ./bonus/netdata
+    container_name: netdata
+    restart: always
+    networks:
+      - inception
+    ports:
+      - 19999:19999
 
 volumes:
-  mariadb_data:
+  mariadb_vol:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/youssef/inc/data/mariadb_data
-  wordpress_data:
+      device: /home/kali/inception/data/mariadb_data
+  wordpress_vol:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/youssef/inc/data/wordpress_data
+      device: /home/kali/inception/data/wordpress_data
       
 networks:
   inception:
     name: inception
     driver: bridge
-
