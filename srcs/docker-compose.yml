@@ -43,7 +43,7 @@ services:
   
   redis:
     image: redis:1337
-    build: ./bonus/redis
+    build: ./requirements/bonus/redis
     container_name: redis
     restart: always
     networks:
@@ -51,7 +51,7 @@ services:
   
   ftp:
     image: ftp:1337
-    build: ./bonus/ftp
+    build: ./requirements/bonus/ftp
     container_name: ftp
     restart: always
     networks:
@@ -66,7 +66,7 @@ services:
 
   adminer:
     image: adminer:1337
-    build: ./bonus/adminer
+    build: ./requirements/bonus/adminer
     container_name: adminer
     restart: always
     networks:
@@ -78,7 +78,7 @@ services:
 
   game:
     image: game:1337
-    build: ./bonus/jsgame
+    build: ./requirements/bonus/jsgame
     container_name: game
     restart: always
     networks:
@@ -88,7 +88,7 @@ services:
   
   netdata:
     image: netdata:1337
-    build: ./bonus/netdata
+    build: ./requirements/bonus/netdata
     container_name: netdata
     restart: always
     networks:

@@ -26,10 +26,6 @@ down:
 	@sudo docker-compose -f $(COMPOSE_FILE) down
 	@echo "$(BOLD)$(RED)Docker containers are down$(RESET)"
 
-clean:
-	@sudo docker-compose -f $(COMPOSE_FILE) down --volumes
-	@echo "$(BOLD)$(RED)Docker containers are down and volumes are removed$(RESET)"
-
 rm_img:
 	@sudo docker rmi -f $$(sudo docker images -q)
 	@echo "$(BOLD)$(RED)All Docker images are removed$(RESET)"

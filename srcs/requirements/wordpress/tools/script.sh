@@ -29,11 +29,11 @@ sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 0.0.0.0:3030/g' /etc/php
 mkdir -p /run/php/
 chmod 755 /run/php/
 
-wpcli config set WP_REDIS_HOST "redis" --allow-root
-wpcli config set WP_REDIS_PORT 6379 --raw --allow-root 
+wpcli config set WP_REDIS_HOST $REDIS_HOST --allow-root
+wpcli config set WP_REDIS_PORT $REDIS_PORT --raw --allow-root 
 wpcli config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
-wpcli config set WP_CACHE true --raw --allow-root 
-wpcli config set WP_REDIS_DISABLE_DROPIN_CHECK true --raw --allow-root 
+wpcli config set WP_CACHE true --raw --allow-root
+wpcli config set WP_REDIS_DISABLE_DROPIN_CHECK true --raw --allow-root
 wpcli plugin install redis-cache --activate --allow-root
 wpcli redis enable --allow-root
 
