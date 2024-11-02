@@ -4,7 +4,7 @@ services:
     image: mariadb:1337
     build: ./requirements/mariadb
     container_name: mariadb
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     volumes:
@@ -16,7 +16,7 @@ services:
     image: wordpress:1337
     build: ./requirements/wordpress
     container_name: wordpress
-    restart: always
+    restart: unless-stopped
     depends_on:
       - mariadb
     env_file:
@@ -30,7 +30,7 @@ services:
     image: nginx:1337
     build: ./requirements/nginx
     container_name: nginx
-    restart: always
+    restart: unless-stopped
     depends_on:
       - wordpress
     networks:
@@ -39,13 +39,12 @@ services:
       - wordpress_vol:/var/www/html
     ports:
       - 443:443
-      - 80:80
   
   redis:
     image: redis:1337
     build: ./requirements/bonus/redis
     container_name: redis
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
   
@@ -53,7 +52,7 @@ services:
     image: ftp:1337
     build: ./requirements/bonus/ftp
     container_name: ftp
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
     env_file:
@@ -68,7 +67,7 @@ services:
     image: adminer:1337
     build: ./requirements/bonus/adminer
     container_name: adminer
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
     env_file:
@@ -80,7 +79,7 @@ services:
     image: game:1337
     build: ./requirements/bonus/jsgame
     container_name: game
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
     ports:
@@ -90,7 +89,7 @@ services:
     image: netdata:1337
     build: ./requirements/bonus/netdata
     container_name: netdata
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
     ports:
@@ -102,14 +101,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/kali/inception/data/mariadb_data
+      device: /home/ymahni/data/mariadb_data
   wordpress_vol:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/kali/inception/data/wordpress_data
-      
+      device: /home/ymahni/data/wordpress_data
+
 networks:
   inception:
     name: inception

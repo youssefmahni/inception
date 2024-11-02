@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sleep 3
+sleep 5
 
 mkdir -p /var/www/html/wordpress/public_html
 
