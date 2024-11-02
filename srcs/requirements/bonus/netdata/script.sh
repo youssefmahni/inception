@@ -1,11 +1,8 @@
 #!/bin/sh
 
+
 wget https://my-netdata.io/kickstart.sh
 
-bash < kickstart.sh
+bash < kickstart.sh > /dev/null 2>&1
 
-service netdata start
-
-service netdata enable
-
-tail -f
+exec netdata -D

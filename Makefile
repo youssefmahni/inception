@@ -26,13 +26,17 @@ down:
 	@sudo docker-compose -f $(COMPOSE_FILE) down
 	@echo "$(BOLD)$(RED)Docker containers are down$(RESET)"
 
+clean: down rm_dir rm_vol rm_net
+	@sudo docker-compose -f $(COMPOSE_FILE) down
+	@echo "$(BOLD)$(RED)Docker containers are down and volumes are removed$(RESET)"
+
 rm_img:
 	@sudo docker rmi -f $$(sudo docker images -q)
 	@echo "$(BOLD)$(RED)All Docker images are removed$(RESET)"
 
 rm_vol:
-	@sudo docker volume rm mariadb_vol
-	@sudo docker volume rm wordpress_vol
+	@sudo docker volume rm srcs_mariadb_vol
+	@sudo docker volume rm srcs_wordpress_vol
 	@echo "$(BOLD)$(RED)All Docker volumes are removed$(RESET)"
 
 rm_net:
