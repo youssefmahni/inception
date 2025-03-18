@@ -101,13 +101,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/ymahni/data/mariadb_data
+      device: /home/youssef/Desktop/inception/data/mariadb_data
   wordpress_vol:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/ymahni/data/wordpress_data
+      device: /home/youssef/Desktop/inception/data/wordpress_data
 
 networks:
   inception:
